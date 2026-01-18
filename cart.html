@@ -1,0 +1,12 @@
+<h2>Your Cart</h2>
+<ul id="cart"></ul>
+
+<script>
+fetch("http://localhost:5000/api/cart")
+  .then(res => res.json())
+  .then(data => {
+    cart.innerHTML = data.map(i =>
+      `<li>${i.name} - ₹${i.price} × ${i.quantity}</li>`
+    ).join("");
+  });
+</script>

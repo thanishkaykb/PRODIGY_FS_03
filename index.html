@@ -1,0 +1,25 @@
+<h2>Local Store</h2>
+<div id="products"></div>
+
+<script>
+fetch("http://localhost:5000/api/products")
+  .then(res => res.json())
+  .then(data => {
+    products.innerHTML = data.map(p => `
+      <div>
+        <img src="${p.image}" width="100"><br>
+        ${p.name} - ₹${p.price}<br>
+        <button onclick="addToCart(${p.id})">Add to Cart</button>
+      </div><hr>
+    `).join("");
+  });
+
+function addToCart(id) {
+  fetch("http://localhost:5000/api/cart", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ product_id: id })
+  });
+  alert("Added to cart");
+}
+</script>
